@@ -92,7 +92,7 @@ public class BankAccount implements Serializable {
 		AggregateLifecycle.apply(new MoneyWithdrawnEvent(id, amount));
 	}
 
-    public static class InsufficientBalanceException extends RuntimeException {
+	public static class InsufficientBalanceException extends RuntimeException {
         InsufficientBalanceException(String message) {
             super(message);
         }
@@ -101,6 +101,10 @@ public class BankAccount implements Serializable {
 	@EventSourcingHandler
 	protected void on(MoneyWithdrawnEvent event) {
 		this.balance -= event.amount;
+	}
+
+	public double getBalance() {
+		return balance;
 	}
 
 }
